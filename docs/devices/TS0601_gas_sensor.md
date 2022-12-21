@@ -1,23 +1,32 @@
 ---
 title: "TuYa TS0601_gas_sensor control via MQTT"
-description: "Integrate your TuYa TS0601_gas_sensor via Zigbee2MQTT with whatever smart home
- infrastructure you are using without the vendors bridge or gateway."
+description: "Integrate your TuYa TS0601_gas_sensor via Zigbee2MQTT with whatever smart home infrastructure you are using without the vendor's bridge or gateway."
+addedAt: 2021-05-01T14:47:09Z
+pageClass: device-page
 ---
 
-*To contribute to this page, edit the following
-[file](https://github.com/Koenkk/zigbee2mqtt.io/blob/master/docs/devices/TS0601_gas_sensor.md)*
+<!-- !!!! -->
+<!-- ATTENTION: This file is auto-generated through docgen! -->
+<!-- You can only edit the "Notes"-Section between the two comment lines "Notes BEGIN" and "Notes END". -->
+<!-- Do not use h1 or h2 heading within "## Notes"-Section. -->
+<!-- !!!! -->
 
 # TuYa TS0601_gas_sensor
 
+|     |     |
+|-----|-----|
 | Model | TS0601_gas_sensor  |
-| Vendor  | TuYa  |
+| Vendor  | [TuYa](/supported-devices/#v=TuYa)  |
 | Description | gas sensor |
-| Exposes | gas, linkquality |
-| Picture | ![TuYa TS0601_gas_sensor](../images/devices/TS0601_gas_sensor.jpg) |
+| Exposes | gas, self_test, self_test_result, fault_alarm, silence, linkquality |
+| Picture | ![TuYa TS0601_gas_sensor](https://www.zigbee2mqtt.io/images/devices/TS0601_gas_sensor.jpg) |
 
-## Notes
 
-None
+<!-- Notes BEGIN: You can edit here. Add "## Notes" headline if not already present. -->
+
+
+<!-- Notes END: Do not edit below this line -->
+
 
 
 ## Exposes
@@ -28,37 +37,36 @@ Value can be found in the published state on the `gas` property.
 It's not possible to read (`/get`) or write (`/set`) this value.
 If value equals `true` gas is ON, if `false` OFF.
 
+### Self_test (binary)
+Indicates whether the device is being self-tested.
+Value can be found in the published state on the `self_test` property.
+It's not possible to read (`/get`) this value.
+To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"self_test": NEW_VALUE}`.
+If value equals `true` self_test is ON, if `false` OFF.
+
+### Self_test_result (enum)
+Result of the self-test.
+Value can be found in the published state on the `self_test_result` property.
+It's not possible to read (`/get`) or write (`/set`) this value.
+The possible values are: `checking`, `success`, `failure`, `others`.
+
+### Fault_alarm (binary)
+Indicates whether a fault was detected.
+Value can be found in the published state on the `fault_alarm` property.
+It's not possible to read (`/get`) or write (`/set`) this value.
+If value equals `true` fault_alarm is ON, if `false` OFF.
+
+### Silence (binary)
+Silence the alarm.
+Value can be found in the published state on the `silence` property.
+It's not possible to read (`/get`) this value.
+To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"silence": NEW_VALUE}`.
+If value equals `true` silence is ON, if `false` OFF.
+
 ### Linkquality (numeric)
 Link quality (signal strength).
 Value can be found in the published state on the `linkquality` property.
 It's not possible to read (`/get`) or write (`/set`) this value.
 The minimal value is `0` and the maximum value is `255`.
 The unit of this value is `lqi`.
-
-## Manual Home Assistant configuration
-Although Home Assistant integration through [MQTT discovery](../integration/home_assistant) is preferred,
-manual integration is possible with the following configuration:
-
-
-{% raw %}
-```yaml
-binary_sensor:
-  - platform: "mqtt"
-    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
-    availability_topic: "zigbee2mqtt/bridge/state"
-    value_template: "{{ value_json.gas }}"
-    payload_on: true
-    payload_off: false
-    device_class: "gas"
-
-sensor:
-  - platform: "mqtt"
-    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
-    availability_topic: "zigbee2mqtt/bridge/state"
-    value_template: "{{ value_json.linkquality }}"
-    unit_of_measurement: "lqi"
-    icon: "mdi:signal"
-```
-{% endraw %}
-
 
